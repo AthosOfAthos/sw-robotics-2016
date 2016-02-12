@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * joystick is port 0
  * let me know if turning doesn't work right--i wouldn't be surprised
  * all the relevant shit is in teleopPeriodic()
+ * should be able to steam video through dashboard
  *  --Simon Rothman
  */
 public class Robot extends IterativeRobot {
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser chooser;
 	RobotDrive robot;
 	Joystick stick;
+	CameraServer server; 
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -38,6 +40,9 @@ public class Robot extends IterativeRobot {
 		robot = new RobotDrive(0, 1);
 		robot.setExpiration(0.1);
 		stick = new Joystick(0);
+		server = CameraServer.getInstance();
+	 	server.setQuality(50);
+        	server.startAutomaticCapture("cam0");
 	}
 
 	/**
