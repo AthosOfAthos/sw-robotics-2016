@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Signs in front of motor output values are likely incorrect
  * left wheel is port 0
  * right wheel is port 1
+ * joystick is port 0
  * let me know if turning doesn't work right--i wouldn't be surprised
  * all the relevant shit is in teleopPeriodic()
  *  --Simon Rothman
