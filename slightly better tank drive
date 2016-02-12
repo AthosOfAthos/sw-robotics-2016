@@ -84,9 +84,9 @@ public class Robot extends IterativeRobot {
 			robot.setLeftRightMotorOutputs(x, x); //is not inverted because turning
 		} else{ //mixed turn IF THIS DOESN"T WORK LET ME KNOW
 			if(x >0){ //turning right-- signs will likely need adjusting--i dont quite know which motor is which
-				robot.setLeftRightMotorOutputs(r, r*Math.cos(2*Math.asin(y/r))); //should scale right motor--will need testing
+				robot.setLeftRightMotorOutputs(y, r*Math.cos(2*Math.asin(y/r))); //should scale right motor--will need testing
 			} else{ //turning left
-				robot.setLeftRightMotorOutputs(r*Math.cos(2*Math.asin(y/r)), r);
+				robot.setLeftRightMotorOutputs(r*Math.cos(2*Math.asin(y/r)), y);
 			}
 		}
 
