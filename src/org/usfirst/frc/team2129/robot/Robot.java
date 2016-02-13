@@ -15,8 +15,8 @@ public class Robot extends IterativeRobot {
 	RobotDrive robo = new RobotDrive(0,1);
 	CameraServer server;
 	
-	Joystick rightJoystick = new Joystick(1);
-	Joystick leftJoystick = new Joystick(2);//yeah
+	Joystick leftJoystick = new Joystick(0);
+	Joystick rightJoystick = new Joystick(1);//yeah
 	
     public void robotInit() {
     	server = CameraServer.getInstance();
@@ -33,9 +33,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-    	if (leftJoystick.getY() > 0.05 || rightJoystick.getY() > 0.05) {
-    		robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
-    	}
+    	robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
     }
     
     public void testPeriodic() {
