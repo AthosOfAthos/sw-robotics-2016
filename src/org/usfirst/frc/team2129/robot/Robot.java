@@ -1,4 +1,4 @@
-
+//memes
 package org.usfirst.frc.team2129.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -16,7 +16,7 @@ public class Robot extends IterativeRobot {
 	CameraServer server;
 	
 	Joystick rightJoystick = new Joystick(1);
-	Joystick leftJoystick = new Joystick(2);
+	Joystick leftJoystick = new Joystick(2);//yeah
 	
     public void robotInit() {
     	server = CameraServer.getInstance();
@@ -33,7 +33,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-        robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    	if (leftJoystick.getY() > 0.05 || rightJoystick.getY() > 0.05) {
+    		robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    	}
     }
     
     public void testPeriodic() {
