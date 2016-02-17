@@ -6,14 +6,23 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
-	RobotDrive robo = new RobotDrive(0,1);
 	CameraServer server;
+	
+	RobotDrive robo = new RobotDrive(0,1);
+	
+	Talon spinerLeft = new Talon(2);
+	Talon spinerRight = new Talon(3);
+	Talon aimer = new Talon(4);
+	
+	boolean suck = false;
+	boolean eject = false;
 	
 	Joystick leftJoystick = new Joystick(0);
 	Joystick rightJoystick = new Joystick(1);//yeah
@@ -33,7 +42,58 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-    	robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    	if (Math.abs(leftJoystick.getY()) > .05 || Math.abs(rightJoystick.getY()) > .05) {
+    		robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    	} else {
+    		robo.setLeftRightMotorOutputs(0, 0);
+    	}
+    	
+    	eject = rightJoystick.getRawButton(1);//either returns bool or int
+    	suck = leftJoystick.getRawButton(1);
+    	
+    	if (eject) {//controls spinner party of launcher
+    		spinSpew();
+    	} else if (suck) {
+    		spinSuck();
+    	} else {
+    		spinStop();
+    	}
+    	
+    	if (rightJoystick.getRawButton(6)) {//controls aim of launcher
+    		aimUp();
+    	} else if (rightJoystick.getRawButton(4)) {
+    		aimDown();
+    	} else {
+    		aimStop();
+    	}
+    	
+    }
+    
+    public void spinSpew() {
+    	spinerLeft.set(1);
+    	spinerRight.set(1);
+    }
+    
+    public void spinSuck() {
+    	spinerLeft.set(-1);
+    	spinerRight.set(-1);
+    }
+    
+    public void spinStop() {
+    	spinerLeft.set(0);
+    	spinerRight.set(0);
+    }
+    
+    public void aimUp() {
+    	aimer.set(.5);
+    }
+    
+    public void aimDown() {
+    	aimer.set(-.5);
+    }
+    
+    public void aimStop() {
+    	aimer.set(0);
     }
     
     public void testPeriodic() {
