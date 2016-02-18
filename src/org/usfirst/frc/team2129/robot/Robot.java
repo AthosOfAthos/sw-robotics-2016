@@ -23,6 +23,9 @@ public class Robot extends IterativeRobot {
 	Talon spinerRight = new Talon(3);
 	Talon aimer = new Talon(4);
 	
+	//arm that does something?
+	Talon arm = new Talon(5);
+	
 	//booleans bc return of function does ?? int/bool ??
 	boolean suck = false;
 	boolean eject = false;
@@ -34,6 +37,7 @@ public class Robot extends IterativeRobot {
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
 	double aimSpeed = -.5;//speed for aiming spinners must be NEGATIVE
+	double armSpeed = -.5;//speed for the arm must be NEGATIVE
 	
     public void robotInit() {
     	//all stuff for the webcam
@@ -81,6 +85,17 @@ public class Robot extends IterativeRobot {
     		aimStop();
     	}
     	
+    	//the arm, do you know what it does?
+    	if (rightJoystick.getRawButton(5)) {
+    		//move arm up
+    		arm.set(Math.abs(armSpeed));
+    	} else if (rightJoystick.getRawButton(3)) {
+    		//move arm down
+    		arm.set(armSpeed);
+    	} else {
+    		//stop the arm
+    		arm.set(0);
+    	}
     }
     
     //tells launcher to launch balls
