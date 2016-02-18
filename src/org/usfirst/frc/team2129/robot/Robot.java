@@ -1,4 +1,3 @@
-//memes
 package org.usfirst.frc.team2129.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -25,7 +24,11 @@ public class Robot extends IterativeRobot {
 	boolean eject = false;
 	
 	Joystick leftJoystick = new Joystick(0);
-	Joystick rightJoystick = new Joystick(1);//yeah
+	Joystick rightJoystick = new Joystick(1);
+	
+	//Config
+	double spinSpeed = -1;//speed for spinners always be NEGATIVE
+	double aimSpeed = -.5;//speed for aiming spinners must be NEGATIVE
 	
     public void robotInit() {
     	server = CameraServer.getInstance();
@@ -48,7 +51,7 @@ public class Robot extends IterativeRobot {
     		robo.setLeftRightMotorOutputs(0, 0);
     	}
     	
-    	eject = rightJoystick.getRawButton(1);//either returns bool or int
+    	eject = rightJoystick.getRawButton(1);//either returns a boolean or integer
     	suck = leftJoystick.getRawButton(1);
     	
     	if (eject) {//controls spinner party of launcher
@@ -59,6 +62,7 @@ public class Robot extends IterativeRobot {
     		spinStop();
     	}
     	
+    	//if something doesent work its probaly this
     	if (rightJoystick.getRawButton(6)) {//controls aim of launcher
     		aimUp();
     	} else if (rightJoystick.getRawButton(4)) {
@@ -70,13 +74,13 @@ public class Robot extends IterativeRobot {
     }
     
     public void spinSpew() {
-    	spinerLeft.set(1);
-    	spinerRight.set(1);
+    	spinerLeft.set(Math.abs(spinSpeed));
+    	spinerRight.set(Math.abs(spinSpeed));
     }
     
     public void spinSuck() {
-    	spinerLeft.set(-1);
-    	spinerRight.set(-1);
+    	spinerLeft.set(spinSpeed);
+    	spinerRight.set(spinSpeed);
     }
     
     public void spinStop() {
@@ -85,11 +89,11 @@ public class Robot extends IterativeRobot {
     }
     
     public void aimUp() {
-    	aimer.set(.5);
+    	aimer.set(Math.abs(aimSpeed));
     }
     
     public void aimDown() {
-    	aimer.set(-.5);
+    	aimer.set(aimSpeed);
     }
     
     public void aimStop() {
