@@ -34,6 +34,13 @@ public class Robot extends IterativeRobot {
 	Joystick leftJoystick = new Joystick(0);
 	Joystick rightJoystick = new Joystick(1);
 	
+	//booleans for reversal
+	boolean reverse = false;
+	boolean push = false;
+	
+	//threshold config
+	double threshold = .10;
+	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
 	double aimSpeed = -.5;//speed for aiming spinners must be NEGATIVE
@@ -57,10 +64,30 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	//basic tank controls
     	//note to self improve later
-    	if (Math.abs(leftJoystick.getY()) > .05 || Math.abs(rightJoystick.getY()) > .05) {
-    		robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    	if (reverse) {//inverted controls
+    		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
+    			robo.setLeftRightMotorOutputs(rightJoystick.getY() * -1, leftJoystick.getY() * -1);
+    		} else {
+    			robo.setLeftRightMotorOutputs(0, 0);
+    		}
+    	} else {//normal controls
+    		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
+    			robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    		} else {
+    			robo.setLeftRightMotorOutputs(0, 0);
+    		}
+    	}
+    	
+    	//Inverter
+    	if (leftJoystick.getRawButton(3) && !push) {
+    		push = true;
+    		if (reverse) {
+    			reverse = false;
+    		} else {
+    			reverse = true;
+    		}
     	} else {
-    		robo.setLeftRightMotorOutputs(0, 0);
+    		push = false;
     	}
     	
     	//either returns a boolean or integer not sure?
