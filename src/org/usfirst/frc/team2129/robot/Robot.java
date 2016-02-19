@@ -19,9 +19,10 @@ public class Robot extends IterativeRobot {
 	RobotDrive robo = new RobotDrive(0,1);
 	
 	//motor controller setup for ball launcher
-	Talon spinerLeft = new Talon(4);
-	Talon spinerRight = new Talon(3);
-	Talon aimer = new Talon(2);
+	Talon spinerLeft = new Talon(5);
+	Talon spinerRight = new Talon(4);
+	Talon aimer = new Talon(2);//Both aim the arm
+	Talon aimerBoost = new Talon(3);
 	
 	//arm that does something?
 	Talon arm = new Talon(5);
@@ -179,16 +180,19 @@ public class Robot extends IterativeRobot {
     //aims the launcher up
     public void aimUp() {
     	aimer.set(aimSpeed);
+    	aimerBoost.set(aimSpeed);
     }
     
     //aims the launcher down
     public void aimDown() {
     	aimer.set(Math.abs(aimSpeed));
+    	aimerBoost.set(Math.abs(aimSpeed));
     }
     
     //tells the launcher to stop moving
     public void aimStop() {
     	aimer.set(0);
+    	aimerBoost.set(0);
     }
     
     public void testPeriodic() {
