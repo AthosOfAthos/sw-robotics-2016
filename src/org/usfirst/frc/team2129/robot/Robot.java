@@ -16,7 +16,9 @@ public class Robot extends IterativeRobot {
 	CameraServer server;
 	
 	//ports 0 and 1 are for the treads
-	RobotDrive robo = new RobotDrive(0,1);
+	//RobotDrive robo = new RobotDrive(0,1);
+	Talon treadLeft = new Talon(0);
+	Talon treadRight = new Talon(1);
 	
 	//motor controller setup for ball launcher
 	Talon spinerLeft = new Talon(5);
@@ -25,7 +27,7 @@ public class Robot extends IterativeRobot {
 	Talon aimerBoost = new Talon(3);
 	
 	//arm that does something?
-	Talon arm = new Talon(5);
+	Talon arm = new Talon(6);
 	
 	//booleans bc return of getRawButton function does ?? int/bool ??
 	boolean suck = false;
@@ -42,12 +44,12 @@ public class Robot extends IterativeRobot {
 	boolean push = false;
 	
 	//threshold config
-	double threshold = .10;
+	double threshold = .05;
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeed = -.50;//speed for aiming spinners must be POSITIVE
-	double armSpeed = -.5;//speed for the arm must be NEGATIVE
+	double aimSpeed = -.30;//speed for aiming spinners must be POSITIVE
+	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
 	//config for movement
 	double treadMod = 1;//modifier for how fast the treads go
@@ -74,25 +76,27 @@ public class Robot extends IterativeRobot {
     	//note to self improve later
     	if (reverse) {//inverted controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(rightJoystick.getY() * -1, leftJoystick.getY() * -1);
+    			move(rightJoystick.getY() * -1, leftJoystick.getY());
     		} else {
     			move(0, 0);
     		}
     	} else {//normal controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(leftJoystick.getY(), rightJoystick.getY());
+    			move(leftJoystick.getY(), rightJoystick.getY() * -1);
     		} else {
     			move(0, 0);
     		}
     	}
     	
     	//Inverter
-    	if (leftJoystick.getRawButton(3) && !push) {
-    		push = true;
-    		if (reverse) {
-    			reverse = false;
-    		} else {
-    			reverse = true;
+    	if (leftJoystick.getRawButton(3)) {
+    		if (!push) {
+    			push = true;
+    			if (reverse) {
+    				reverse = false;
+    			} else {
+    				reverse = true;
+    			}
     		}
     	} else {
     		push = false;
@@ -155,7 +159,8 @@ public class Robot extends IterativeRobot {
     			right = treadMin;
     		}
     		//set motors
-    	robo.setLeftRightMotorOutputs(left, right);
+    	treadLeft.set(left);
+    	treadRight.set(right);
     	}
     }
     
@@ -192,7 +197,7 @@ public class Robot extends IterativeRobot {
     //tells the launcher to stop moving
     public void aimStop() {
     	aimer.set(0);
-    	aimerBoost.set(0);
+    	aimerBoost.set(0 );
     }
     
     public void testPeriodic() {
