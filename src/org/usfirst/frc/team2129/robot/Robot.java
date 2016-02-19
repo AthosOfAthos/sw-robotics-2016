@@ -45,8 +45,13 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeed = -.20;//speed for aiming spinners must be POSITIVE
+	double aimSpeed = -.50;//speed for aiming spinners must be POSITIVE
 	double armSpeed = -.5;//speed for the arm must be NEGATIVE
+	
+	//config for movement
+	double treadMod = 1;//modifier for how fast the treads go
+	double treadMax = .75;//limit for how fast the treads will go
+	double treadMin = -.75;//same for other side
 	
     public void robotInit() {
     	//all stuff for the webcam
@@ -68,15 +73,15 @@ public class Robot extends IterativeRobot {
     	//note to self improve later
     	if (reverse) {//inverted controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			robo.setLeftRightMotorOutputs(rightJoystick.getY() * -1, leftJoystick.getY() * -1);
+    			move(rightJoystick.getY() * -1, leftJoystick.getY() * -1);
     		} else {
-    			robo.setLeftRightMotorOutputs(0, 0);
+    			move(0, 0);
     		}
     	} else {//normal controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			robo.setLeftRightMotorOutputs(leftJoystick.getY(), rightJoystick.getY());
+    			move(leftJoystick.getY(), rightJoystick.getY());
     		} else {
-    			robo.setLeftRightMotorOutputs(0, 0);
+    			move(0, 0);
     		}
     	}
     	
@@ -126,6 +131,30 @@ public class Robot extends IterativeRobot {
     	} else {
     		//stop the arm
     		arm.set(0);
+    	}
+    }
+    
+    //Sets the treads to a speed
+    public void move(double left, double right) {
+    	//speed mod
+    	left *= treadMod;
+    	right *= treadMod;
+    	//Max speed
+    	if (Math.abs(left) > treadMax) {
+    		if (left > 0) {
+    			left = treadMax;
+    		} else {
+    			left = treadMin;
+    		}
+    	}
+    	if (Math.abs(right) > treadMax) {
+    		if (right > 0) {
+    			right = treadMax;
+    		} else {
+    			right = treadMin;
+    		}
+    		//set motors
+    	robo.setLeftRightMotorOutputs(left, right);
     	}
     }
     
