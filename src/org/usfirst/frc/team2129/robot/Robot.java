@@ -69,6 +69,8 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
     	//put something else here
+    	//this is bad
+    	move(.25,.25);
     }
 
     public void teleopPeriodic() {
@@ -158,10 +160,10 @@ public class Robot extends IterativeRobot {
     		} else {
     			right = treadMin;
     		}
-    		//set motors
+    	}
+    	//set motors
     	treadLeft.set(left);
     	treadRight.set(right);
-    	}
     }
     
     //tells launcher to launch balls
