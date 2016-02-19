@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
 	//arm that does something?
 	Talon arm = new Talon(5);
 	
-	//booleans bc return of function does ?? int/bool ??
+	//booleans bc return of getRawButton function does ?? int/bool ??
 	boolean suck = false;
 	boolean eject = false;
 	boolean up = false;
@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeed = -.25;//speed for aiming spinners must be NEGATIVE
+	double aimSpeed = -.20;//speed for aiming spinners must be NEGATIVE
 	double armSpeed = -.5;//speed for the arm must be NEGATIVE
 	
     public void robotInit() {
