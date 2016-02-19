@@ -19,9 +19,9 @@ public class Robot extends IterativeRobot {
 	RobotDrive robo = new RobotDrive(0,1);
 	
 	//motor controller setup for ball launcher
-	Talon spinerLeft = new Talon(2);
+	Talon spinerLeft = new Talon(4);
 	Talon spinerRight = new Talon(3);
-	Talon aimer = new Talon(4);
+	Talon aimer = new Talon(2);
 	
 	//arm that does something?
 	Talon arm = new Talon(5);
@@ -29,6 +29,8 @@ public class Robot extends IterativeRobot {
 	//booleans bc return of function does ?? int/bool ??
 	boolean suck = false;
 	boolean eject = false;
+	boolean up = false;
+	boolean down = false;
 	
 	//joysticks are important
 	Joystick leftJoystick = new Joystick(0);
@@ -43,7 +45,7 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeed = -.5;//speed for aiming spinners must be NEGATIVE
+	double aimSpeed = -.25;//speed for aiming spinners must be NEGATIVE
 	double armSpeed = -.5;//speed for the arm must be NEGATIVE
 	
     public void robotInit() {
@@ -113,10 +115,12 @@ public class Robot extends IterativeRobot {
     	}
     	
     	//the arm, do you know what it does?
-    	if (rightJoystick.getRawButton(5)) {
+    	up = rightJoystick.getRawButton(5);
+    	down = rightJoystick.getRawButton(3);
+    	if (up) {
     		//move arm up
     		arm.set(Math.abs(armSpeed));
-    	} else if (rightJoystick.getRawButton(3)) {
+    	} else if (down) {
     		//move arm down
     		arm.set(armSpeed);
     	} else {
