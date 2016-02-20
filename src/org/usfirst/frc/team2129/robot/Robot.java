@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
 	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
+	double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
 	//config for movement
@@ -108,13 +109,15 @@ public class Robot extends IterativeRobot {
     		spinStop();
     	}
     	
-    	//if something doesent work its probaly this
+    	//aims the ball launcher
     	if (rightJoystick.getRawButton(6)) {//controls aim of launcher
-    		aimUp();
+    		aimerMove(aimSpeedUp);
     	} else if (rightJoystick.getRawButton(4)) {
-    		aimDown();
+    		aimerMove(aimSpeedDown);
+    	} else if (rightJoystick.getRawButton(2)) {
+    		aimerMove(aimSpeedDownPower);
     	} else {
-    		aimStop();
+    		aimerMove(0);
     	}
     	
     	//the arm, do you know what it does?
@@ -173,22 +176,10 @@ public class Robot extends IterativeRobot {
     	spinerRight.set(0);
     }
     
-    //aims the launcher up
-    public void aimUp() {
-    	aimer.set(aimSpeedUp);
-    	aimerBoost.set(aimSpeedUp);
-    }
-    
-    //aims the launcher down
-    public void aimDown() {
-    	aimer.set(aimSpeedDown);
-    	aimerBoost.set(aimSpeedDown);
-    }
-    
-    //tells the launcher to stop moving
-    public void aimStop() {
-    	aimer.set(0);
-    	aimerBoost.set(0 );
+    //makes aimer move
+    public void aimerMove(double aimingSpeed) {
+    	aimer.set(aimingSpeed);
+    	aimerBoost.set(aimingSpeed);
     }
     
     public void testPeriodic() {
