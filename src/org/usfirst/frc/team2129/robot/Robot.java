@@ -21,8 +21,8 @@ public class Robot extends IterativeRobot {
 	Talon treadRight = new Talon(1);
 	
 	//motor controller setup for ball launcher
-	Talon spinerLeft = new Talon(5);
-	Talon spinerRight = new Talon(4);
+	Talon spinerRight = new Talon(5);
+	Talon spinerLeft = new Talon(4);
 	Talon aimer = new Talon(2);//Both aim the arm
 	Talon aimerBoost = new Talon(3);
 	Talon pusher = new Talon(6);//pushes the ball out
@@ -44,16 +44,16 @@ public class Robot extends IterativeRobot {
 	int cyclesCompleted = 0;
 	
 	//config for ball pusher
-	int cycles = 20;
-	double pushOut = .25;
-	double pushIn = -.25;
+	int cycles = 10;
+	double pushOut = .3;
+	double pushIn = -.3;
 	
 	//threshold config
 	double threshold = .05;
 	
 	//config for speeds
-	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
+	double spinSpeed = -0.75;//speed for spinners always be NEGATIVE
+	double aimSpeedUp = -.45;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
 	double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
@@ -68,6 +68,9 @@ public class Robot extends IterativeRobot {
     	server = CameraServer.getInstance();
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
+        
+        //invert
+        spinerLeft.setInverted(true);
     }
     
     public void autonomousInit() {
@@ -85,13 +88,13 @@ public class Robot extends IterativeRobot {
     	//note to self improve later
     	if (reverse) {//inverted controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(rightJoystick.getY() * -1, leftJoystick.getY());
+    			move(rightJoystick.getY(), leftJoystick.getY());
     		} else {
     			move(0, 0);
     		}
     	} else {//normal controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(leftJoystick.getY(), rightJoystick.getY() * -1);
+    			move(leftJoystick.getY() , rightJoystick.getY());
     		} else {
     			move(0, 0);
     		}
@@ -207,8 +210,8 @@ public class Robot extends IterativeRobot {
     
     //tells launcher to pick up balls
     public void spinSuck() {
-    	spinerLeft.set(spinSpeed);
-    	spinerRight.set(spinSpeed);
+    	spinerLeft.set(spinSpeed * .5);
+    	spinerRight.set(spinSpeed * .5);
     }
     
     //used to make launcher not spin
