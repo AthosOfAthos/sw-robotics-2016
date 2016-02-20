@@ -29,12 +29,6 @@ public class Robot extends IterativeRobot {
 	//arm that does something?
 	Talon arm = new Talon(6);
 	
-	//booleans bc return of getRawButton function does ?? int/bool ??
-	boolean suck = false;
-	boolean eject = false;
-	boolean up = false;
-	boolean down = false;
-	
 	//joysticks are important
 	Joystick leftJoystick = new Joystick(0);
 	Joystick rightJoystick = new Joystick(1);
@@ -48,7 +42,7 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeedUp = -.40;//speed for aiming spinners up NEATIVE
+	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
@@ -105,14 +99,10 @@ public class Robot extends IterativeRobot {
     		push = false;
     	}
     	
-    	//either returns a boolean or integer not sure?
-    	eject = rightJoystick.getRawButton(1);
-    	suck = leftJoystick.getRawButton(1);
-    	
     	//controls spinner party of launcher
-    	if (eject) {
+    	if (rightJoystick.getRawButton(1)) {
     		spinSpew();
-    	} else if (suck) {
+    	} else if (leftJoystick.getRawButton(1)) {
     		spinSuck();
     	} else {
     		spinStop();
@@ -128,12 +118,10 @@ public class Robot extends IterativeRobot {
     	}
     	
     	//the arm, do you know what it does?
-    	up = rightJoystick.getRawButton(5);
-    	down = rightJoystick.getRawButton(3);
-    	if (up) {
+    	if (rightJoystick.getRawButton(5)) {
     		//move arm up
     		arm.set(Math.abs(armSpeed));
-    	} else if (down) {
+    	} else if (rightJoystick.getRawButton(3)) {
     		//move arm down
     		arm.set(armSpeed);
     	} else {
