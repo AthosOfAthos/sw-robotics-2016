@@ -48,7 +48,8 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double aimSpeed = -.30;//speed for aiming spinners must be POSITIVE
+	double aimSpeedUp = -.40;//speed for aiming spinners up NEATIVE
+	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
 	//config for movement
@@ -186,14 +187,14 @@ public class Robot extends IterativeRobot {
     
     //aims the launcher up
     public void aimUp() {
-    	aimer.set(aimSpeed);
-    	aimerBoost.set(aimSpeed);
+    	aimer.set(aimSpeedUp);
+    	aimerBoost.set(aimSpeedUp);
     }
     
     //aims the launcher down
     public void aimDown() {
-    	aimer.set(Math.abs(aimSpeed));
-    	aimerBoost.set(Math.abs(aimSpeed));
+    	aimer.set(aimSpeedDown);
+    	aimerBoost.set(aimSpeedDown);
     }
     
     //tells the launcher to stop moving
