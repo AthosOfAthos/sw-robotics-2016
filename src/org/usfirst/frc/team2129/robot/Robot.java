@@ -25,9 +25,10 @@ public class Robot extends IterativeRobot {
 	Talon spinerRight = new Talon(4);
 	Talon aimer = new Talon(2);//Both aim the arm
 	Talon aimerBoost = new Talon(3);
+	Talon pusher = new Talon(6);//pushes the ball out
 	
 	//arm that does something?
-	Talon arm = new Talon(6);
+	Talon arm = new Talon(7);
 	
 	//joysticks are important
 	Joystick leftJoystick = new Joystick(0);
@@ -36,6 +37,16 @@ public class Robot extends IterativeRobot {
 	//booleans for reversal
 	boolean reverse = false;
 	boolean push = false;
+	
+	//variables for launcher
+	boolean pushing = false;
+	boolean goingOut = false;
+	int cyclesCompleted = 0;
+	
+	//config for ball pusher
+	int cycles = 20;
+	double pushOut = .25;
+	double pushIn = -.25;
 	
 	//threshold config
 	double threshold = .05;
@@ -130,6 +141,36 @@ public class Robot extends IterativeRobot {
     	} else {
     		//stop the arm
     		arm.set(0);
+    	}
+    	
+    	//push the ball out
+    	//starts the push
+    	if (leftJoystick.getRawButton(2) && !pushing) {
+    		pushing = true;
+    		goingOut = true;
+    		cyclesCompleted = 0;
+    	}
+    	if (pushing) {
+    		//handles time
+    		if (cyclesCompleted >= cycles) {
+    			if (goingOut) {
+    				goingOut = false;
+    				cyclesCompleted = 0;
+    			} else {
+    				pushing = false;
+    			}
+    		}
+    		//tells pusher to go in/out
+    		if (goingOut) {
+    			pusher.set(pushOut);
+    			cyclesCompleted += 1;
+    		} else {
+    			pusher.set(pushIn);
+    			cyclesCompleted += 1;
+    		}
+    	} else {
+    		//stops the pusher
+    		pusher.set(0);
     	}
     }
     
