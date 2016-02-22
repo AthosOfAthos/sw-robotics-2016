@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	//important camera thing
-	CameraServer server;
+	//CameraServer server;
+	SmartCamera smartCam;
 	
 	//ports 0 and 1 are for the treads
 	//RobotDrive robo = new RobotDrive(0,1);
@@ -65,10 +66,11 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	//all stuff for the webcam
-    	server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
-        
+//    	server = CameraServer.getInstance();
+//        server.setQuality(50);
+//        server.startAutomaticCapture("cam0");
+    	smartCam = new SmartCamera( "cam0" );
+    	
         //invert
         spinerLeft.setInverted(true);
     }
@@ -81,9 +83,16 @@ public class Robot extends IterativeRobot {
     	//put something else here
     	//this is bad
     	move(.25,.25);
+
+    	// Camera processing
+    	smartCam.stream();
     }
 
     public void teleopPeriodic() {
+
+    	// Camera processing
+    	smartCam.stream();
+    	
     	//basic tank controls
     	//note to self improve later
     	if (reverse) {//inverted controls
