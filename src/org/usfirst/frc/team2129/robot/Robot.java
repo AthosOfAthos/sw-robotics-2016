@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
 	//config for movement
-	//double treadMod = 1;we now use the throttle to control mod
+	double treadMod = 1;
 	double treadMax = .75;//limit for how fast the treads will go
 	double treadMin = -.75;//same for other side
 	
@@ -212,9 +212,12 @@ public class Robot extends IterativeRobot {
     
     //Sets the treads to a speed
     public void move(double left, double right) {
+    	//treadMod Thingy
+    	treadMod = rightJoystick.getThrottle() + 1;
+    	treadMod *= 0.5;
     	//speed mod
-    	left *= rightJoystick.getThrottle();
-    	right *= rightJoystick.getThrottle();
+    	left *= treadMod;
+    	right *= treadMod;
     	//Max speed
     	if (Math.abs(left) > treadMax) {
     		if (left > 0) {
