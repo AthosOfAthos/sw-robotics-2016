@@ -13,10 +13,9 @@ public class ShooterLauncher extends Subsystem {
 	double spinSpeed = -1;//speed for spinners always be NEGATIVE
 	double spinSpeedMod = 0.33;//Mod for sucking on balls
 
-    private final SpeedController spinnerLeft  = RobotMap.shooterLeftWheel;
-    private final SpeedController spinnerRight = RobotMap.shooterRightWheel;
-    private final SpeedController pusher       = RobotMap.shooterBallProd;
-    
+    private final SpeedController spinnerLeft  = RobotMap.spinnerLeft;
+    private final SpeedController spinnerRight = RobotMap.spinnerRight;
+        
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -42,14 +41,6 @@ public class ShooterLauncher extends Subsystem {
     	spinnerLeft.set(0);
     	spinnerRight.set(0);
     }    
-    public void BallProdExtend()
-    {
-    	
-    }
-    
-    public void BallProdRetract()
-    {
-    	
-    }
+
 }
 

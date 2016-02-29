@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShooterDown extends Command {
+public class ShooterFastDown extends Command {
 
-    public ShooterDown() {
+    public ShooterFastDown() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.shooterElevator);
     }
 
@@ -19,7 +21,7 @@ public class ShooterDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooterElevator.down();
+    	Robot.shooterElevator.downWithBoost();
     }
 
     // Make this return true when this Command no longer needs to run execute()

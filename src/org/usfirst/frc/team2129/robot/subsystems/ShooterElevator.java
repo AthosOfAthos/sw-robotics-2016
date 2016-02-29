@@ -16,9 +16,9 @@ public class ShooterElevator extends Subsystem {
 	static double aimSpeedDown      = .15;//speed for aiming spinners down POSITIVE
 	static double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
 	static double aimSpeedStop      = -0.20;//don't fall down NEGATIVE
-	static double armSpeed          = -.3;//speed for the arm must be NEGATIVE
 	
-	private final SpeedController elevator = RobotMap.shooterElevator;
+	
+	private final SpeedController aimer = RobotMap.aimer;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -27,19 +27,29 @@ public class ShooterElevator extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void Raise()
+    public void up()
     {
-    	elevator.set( aimSpeed );
+    	aimer.set( aimSpeedUp );
     }
     
-    public void Lower()
+    public void down()
     {
-    	elevator.set( aimSpeed * -1.0 );
+    	aimer.set( aimSpeedDown );
     }
     
-    public void Stop()
+    public void downWithBoost()
     {
-    	elevator.set(0);
+    	aimer.set( aimSpeedDownPower );
+    }
+    
+    public void lockElevation()
+    {
+    	aimer.set( aimSpeedStop );
+    }
+    
+    public void stop()
+    {
+    	aimer.set(0);
     }
 }
 
