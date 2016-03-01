@@ -3,7 +3,6 @@ package org.usfirst.frc.team2129.robot.devices;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
 import com.ni.vision.VisionException;
 
