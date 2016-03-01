@@ -15,7 +15,6 @@ public class PusherIn extends Command {
     public PusherIn() {
     	super.setInterruptible(false);
     	requires( Robot.shooterPusher);
-
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +24,10 @@ public class PusherIn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooterPusher.pushOut();
+    	if (cycleCount == 0)
+    	{
+    		Robot.shooterPusher.pushOut();
+    	}
     	cycleCount++;
     }
 
