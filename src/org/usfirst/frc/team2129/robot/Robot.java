@@ -95,9 +95,10 @@ public class Robot extends IterativeRobot {
     	//this is bad 
     	// TRU
     	if (doesItMove) {
-    		move(-0.25, 0.25);
+    		//uses simple move to not get ANY controller input
+    		simpleMove(-0.25, 0.25);
     		Timer.delay(2);
-    		move(0,0);
+    		simpleMove(0,0);
     		doesItMove = false;
     	}
 
@@ -234,6 +235,12 @@ public class Robot extends IterativeRobot {
     		}
     	}
     	//set motors
+    	treadLeft.set(left);
+    	treadRight.set(right);
+    }
+    
+    //just sets the motor values, simple as that
+    public void simpleMove(double left, double right) {
     	treadLeft.set(left);
     	treadRight.set(right);
     }
