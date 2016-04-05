@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 	
 	//config for speeds
 	//NEGATIVE IS UP, POSITIVE IS DOWN!
-	double spinSpeed = -1;//speed for spinners always be NEGATIVE
+	double spinSpeed = -.75;//speed for spinners always be NEGATIVE
 	double spinSpeedMod = 0.33;//Mod for sucking on balls
 	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
