@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
@@ -56,7 +56,7 @@ public class Robot extends IterativeRobot {
 	//config for speeds
 	//NEGATIVE IS UP, POSITIVE IS DOWN!
 	double spinSpeed = -.75;//speed for spinners always be NEGATIVE
-	double spinSpeedMod = 0.33;//Mod for sucking on balls
+	double spinSpeedMod = 0.33;//Mod for sucking up balls
 	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
 	double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
