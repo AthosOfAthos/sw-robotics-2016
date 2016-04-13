@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	//config for ball pusher
 	int cycles = 20;
 	double pushOut = .3; //this is the wiggly
-	double pushIn = -.3;
+	double pushIn = -.32;
 	
 	//threshold config
 	double threshold = .05;
@@ -56,17 +56,17 @@ public class Robot extends IterativeRobot {
 	//config for speeds
 	//NEGATIVE IS UP, POSITIVE IS DOWN!
 	double spinSpeed = -.75;//speed for spinners always be NEGATIVE
-	double spinSpeedMod = 0.33;//Mod for sucking up balls
-	double aimSpeedUp = -.35;//speed for aiming spinners up NEATIVE
+	double spinSpeedIn = -.5;//Speed for sucking up balls
+	double aimSpeedUp = -.4;//speed for aiming spinners up NEATIVE
 	double aimSpeedDown = .15;//speed for aiming spinners down POSITIVE
 	double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
-	double aimSpeedStop = -0.20;//don't fall down NEGATIVE
+	double aimSpeedStop = -0.15;//don't fall down NEGATIVE
 	double armSpeed = -.3;//speed for the arm must be NEGATIVE
 	
 	//config for movement
 	double treadMod = 1;
-	double treadMax = .75;//limit for how fast the treads will go
-	double treadMin = -.75;//same for other side
+	double treadMax = 1;//limit for how fast the treads will go
+	double treadMin = -1;//same for other side
 	
 	//variables for autonomous
 	boolean doesItMove = true;
@@ -96,8 +96,11 @@ public class Robot extends IterativeRobot {
     	// TRU
     	if (doesItMove) {
     		//uses simple move to not get ANY controller input
-    		simpleMove(-0.25, 0.25);
-    		Timer.delay(2);
+    		aimerMove(aimSpeedDownPower);
+    		Timer.delay(1);
+    		aimerMove(0);
+    		simpleMove(0.8, -0.8);
+    		Timer.delay(4);
     		simpleMove(0,0);
     		doesItMove = false;
     	}
@@ -116,13 +119,13 @@ public class Robot extends IterativeRobot {
     	//note to self improve later
     	if (reverse) {//inverted controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(rightJoystick.getY() * -1, leftJoystick.getY());
+    			move(leftJoystick.getY() * -1, rightJoystick.getY());
     		} else {
     			move(0, 0);
     		}
     	} else {//normal controls
     		if (Math.abs(leftJoystick.getY()) > threshold || Math.abs(rightJoystick.getY()) > threshold) {
-    			move(leftJoystick.getY(), rightJoystick.getY() * -1);
+    			move(rightJoystick.getY(), leftJoystick.getY() * -1);
     		} else {
     			move(0, 0);
     		}
@@ -143,7 +146,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	//controls spinner part of launcher
-    	if (rightJoystick.getRawButton(1)) {
+    	if (rightJoystick.getRawButton(2)) {
     		spinSpew();
     	} else if (leftJoystick.getRawButton(1)) {
     		spinSuck();
@@ -182,7 +185,7 @@ public class Robot extends IterativeRobot {
     	
     	//push the ball out
     	//starts the push
-    	if (rightJoystick.getRawButton(2) && !pushing) {
+    	if (rightJoystick.getRawButton(1) && !pushing) {
     		pushing = true;
     		goingOut = true;
     		cyclesCompleted = 0;
@@ -206,8 +209,14 @@ public class Robot extends IterativeRobot {
     			cyclesCompleted += 1;
     		}
     	} else {
+    		if (rightJoystick.getRawButton(5)) {
+    			pusher.set(.1);
+    		} else if (rightJoystick.getRawButton(3)) {
+    			pusher.set(-.1);
+    		} else {
     		//stops the pusher
     		pusher.set(0);
+    		}
     	}
     }
     
@@ -253,8 +262,8 @@ public class Robot extends IterativeRobot {
     
     //tells launcher to pick up balls
     public void spinSuck() {
-    	spinerLeft.set(spinSpeed * spinSpeedMod);
-    	spinerRight.set(spinSpeed * spinSpeedMod);
+    	spinerLeft.set(spinSpeedIn);
+    	spinerRight.set(spinSpeedIn);
     }
     
     //used to make launcher not spin
