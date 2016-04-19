@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	//config for ball pusher
 	int cycles = 20;
 	double pushOut = .3; //this is the wiggly
-	double pushIn = -.32;
+	double pushIn = -.3;
 	
 	//threshold config
 	double threshold = .05;
