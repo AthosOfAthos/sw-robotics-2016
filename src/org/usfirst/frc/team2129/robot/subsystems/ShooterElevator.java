@@ -12,10 +12,10 @@ public class ShooterElevator extends Subsystem {
     
 	//config for speeds
 	//NEGATIVE IS UP, POSITIVE IS DOWN!
-	static double aimSpeedUp        = -.35;//speed for aiming spinners up NEATIVE
+	static double aimSpeedUp        = -.4;//speed for aiming spinners up NEGATIVE
 	static double aimSpeedDown      = .15;//speed for aiming spinners down POSITIVE
 	static double aimSpeedDownPower = .35;//speed for arms when you need a boost POSITIVE
-	static double aimSpeedStop      = -0.20;//don't fall down NEGATIVE
+	static double aimSpeedStop      = -0.15;//don't fall down NEGATIVE
 	
 	
 	private final SpeedController aimer = RobotMap.aimer;

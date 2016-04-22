@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ShooterLauncher extends Subsystem {
     
-	double spinSpeed = -1;//speed for spinners always be NEGATIVE
-	double spinSpeedMod = 0.33;//Mod for sucking on balls
+	double spinSpeed = -0.75;//speed for spinners always be NEGATIVE
+	double spinSpeedIn = -0.5;//Mod for collecting ball
 
     private final SpeedController spinnerLeft  = RobotMap.spinnerLeft;
     private final SpeedController spinnerRight = RobotMap.spinnerRight;
