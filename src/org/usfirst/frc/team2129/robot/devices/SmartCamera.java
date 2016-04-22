@@ -20,7 +20,8 @@ public class SmartCamera {
 	//Rect rect;
 	boolean visionBroken = false;
 	NIVision.Rect rect    = new NIVision.Rect(10,10,100,100);
-
+	int analysisIntervalMs = 500; 
+	long lastAnalysisOccurrence = 0;
 	
 	public SmartCamera( String cameraName ) {
 		
@@ -60,6 +61,15 @@ public class SmartCamera {
 				NIVision.IMAQdxGrab(session, frame, 1);
 				NIVision.imaqDrawShapeOnImage(frame,frame,rect,DrawMode.DRAW_VALUE,ShapeMode.SHAPE_OVAL,0.0f);
 				CameraServer.getInstance().setImage(frame);
+				
+				long currentTime = System.currentTimeMillis();
+				if (currentTime >= lastAnalysisOccurrence + analysisIntervalMs)
+				{
+					// Do analysis
+					
+					
+					lastAnalysisOccurrence = System.currentTimeMillis();
+				}
 			}catch (VisionException vx){}
     	}
 

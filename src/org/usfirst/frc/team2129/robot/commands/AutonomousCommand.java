@@ -11,11 +11,8 @@
 
 package org.usfirst.frc.team2129.robot.commands;
 
-import java.util.Calendar;
-
 import org.usfirst.frc.team2129.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
