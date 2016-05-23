@@ -32,8 +32,8 @@ public class ShooterLauncher extends Subsystem {
     
     //tells launcher to pick up balls
     public void suck() {
-    	spinnerLeft.set(spinSpeed * spinSpeedMod);
-    	spinnerRight.set(spinSpeed * spinSpeedMod);
+    	spinnerLeft.set(spinSpeedIn);
+    	spinnerRight.set(spinSpeedIn);
     }
     
     //used to make launcher not spin
